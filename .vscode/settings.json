@@ -1,11 +1,15 @@
 {
     "cSpell.words": [
         "asgi",
+        "createsuperuser",
         "djangotutorial",
+        "makemigrations",
         "mysite",
         "runserver",
+        "sqlmigrate",
         "startapp",
         "startproject",
+        "startswith",
         "wsgi"
     ]
 }
