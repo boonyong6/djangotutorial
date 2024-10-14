@@ -150,3 +150,51 @@
   $ python manage.py createsuperuser 
   ```
 - To make models modifiable in the admin site, register models in the admin module of the app, `polls/admin.py`.
+
+# Writing your first Django app, part 3
+
+## Overview
+
+- A view is a "type" of web page.
+  - Serves a specific function.
+  - Has a specific template.
+  - Represented by a Python function or method (class-based views).
+- **URLconf** maps **URL pattern** to views.
+
+## Writing more views
+
+- `mysite.settings.ROOT_URLCONF` -> `mysite.urls` -> `<app>.urls`
+  - Find the `urlpatterns` variable and traverse the patterns in order.
+  ```py
+  # polls/urls.py
+  
+  urlpatterns = [
+      # <int:question_id> captures part of the URL and send it as 
+      #   a keyword argument to the view function.
+      path("<int:question_id>/", views.detail, name="detail"),
+      ...
+  ]
+  ```
+
+## Write views that actually do something
+
+- A view can either return a `HttpResponse` or raise an exception such as `Http404`.
+- Default directory name for templates - `templates`
+- Default templates backend - `DjangoTemplates`
+  - Looks for a `templates` subdirectory in each of the `INSTALLED_APPS`.
+  - **Note:** Create a **subdirectory named after the application** in the `templates` directory as a **template namespace** so the application template don't conflict with other application templates, such as `polls/templates/polls/index.html`.
+- `django.shortcuts.render()` - Common helper function to load a template. 
+
+## Raising a 404 error
+
+- `django.shortcuts.get_object_or_404()` - Common helper function to get an entity or raise 404.
+
+## Removing hardcoded URLs in templates
+
+- Use `{% url %}` template tag in templates to compute the url dynamically.
+
+## Namespacing URL names
+
+- Add namespaces to URLconf to uniquely distinguish url name for different apps in the project.
+  - Define `app_name` in the `<app>/urls.py`
+  - URL name in templates - `<app_name>:<url_name>` such as `polls:detail`
